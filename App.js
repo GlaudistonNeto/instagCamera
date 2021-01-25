@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 export default function Add({ navigation }) {
-  const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
+  const [hasMediaPermission, setHasMediaPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
@@ -17,7 +17,7 @@ export default function Add({ navigation }) {
       setHasCameraPermission(cameraStatus.status === 'granted');
 
       const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      setHasGalleryPermission(galleryStatus.status === 'granted');
+      setHasMediaPermission(galleryStatus.status === 'granted');
 
 
     })();
@@ -44,10 +44,10 @@ export default function Add({ navigation }) {
   };
   // Gallary is not for Begrato!
 
-  if (hasCameraPermission === null || hasGalleryPermission === false) {
+  if (hasCameraPermission === null || hasMediaPermission === false) {
     return <View />;
   }
-  if (hasCameraPermission === false || hasGalleryPermission === false) {
+  if (hasCameraPermission === false || hasMediaPermission === false) {
     return <Text>No access to camera</Text>;
   }
   return (
@@ -71,7 +71,7 @@ export default function Add({ navigation }) {
         }}>
       </Button>
       <Button title="Take Picture" onPress={() => takePicture()} />
-      <Button title="Pick Image From Gallery" onPress={() => pickImage()} />
+      <Button title="Pick Image From Medias" onPress={() => pickImage()} />
       <Button title="Save" onPress={() => navigation.navigate('Save', { image })} />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </View>
